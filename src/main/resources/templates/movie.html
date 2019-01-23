@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Movie</title>
+</head>
+<body>
+	<h1>Movies </h1>
+	<u1>
+		<li th:each="m: ${movies}"> 
+			<span th:text="${m.name}"></span> -
+			<span th:text="${m.year}"></span> 
+			<a th:href="'/movies/edit?id='+${m.id}">Edit</a>
+			
+			<a th:href="'/movies/delete?id='+${m.id}">Delete</a>
+						
+		</li>
+	</u1>
+	<form action="/movies/create" method="post" th:if="${movie == null}">
+		<label>Name: <input name="name" type="text" /> </label>
+		<label>Year: <input name="year" type="text" /> </label>
+	
+		<input type="submit"/>
+	</form>	
+	
+	<form action="/movies/save" method="post" th:if="${movie != null}">
+		<label>Name: <input name="name" type="text" th:value="${movie.name}" /> </label>
+		<label>Year: <input name="year" type="text" th:value="${movie.year}"/> </label>
+		
+		<input type="hidden" name="id" th:value=${movie.id}>
+		<input type="submit" value="Save"/>
+	</form>	
+		
+	
+</body>
+</html>
